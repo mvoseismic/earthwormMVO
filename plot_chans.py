@@ -5,6 +5,8 @@
 #
 # R.C. Stewart, 2021-09-27
 #
+import matplotlib
+matplotlib.use('Agg')
 import os
 import sys
 import glob
@@ -19,14 +21,15 @@ from obspy.core import UTCDateTime, Stream
 
 def main():
 
-    #ipWws = "172.17.102.60"
-    ipWws = "172.17.102.13"
+    ipWws = "172.17.102.60"
+    #ipWws = "172.17.102.13"
 
     portWws = 16022
 
     minutesPlot = 4
 
-    dirOut = "."
+#    dirOut = "."
+    dirOut = "/home/wwsuser/tmp/minihelis"
 
     # Constants
 
@@ -39,22 +42,23 @@ def main():
 
     # Time span wanted
     rightNow = datetime.utcnow()
-#    datimEnd = UTCDateTime( rightNow.year, rightNow.month, rightNow.day, rightNow.hour, rightNow.minute, rightNow.second )
-    datimEnd = UTCDateTime( 2021, 9, 25, 3, 14, 24 )
+    datimEnd = UTCDateTime( rightNow.year, rightNow.month, rightNow.day, rightNow.hour, rightNow.minute, rightNow.second )
+#    datimEnd = UTCDateTime( 2021, 9, 25, 3, 14, 24 )
     datimBeg = datimEnd - minutesPlot*60
 
 
     filePlot = dirnameSeparator.join( [ dirOut, 'fig-4chan.png' ] )
 
-    sta = "MSS1"
+    sta = "MBLG"
     net = "MV"
-    cha = "SHZ"
-    loc = "--"
+    cha = "HHZ"
+    loc = "00"
 
 #    print( 'Trying to get data from waveserver' )
     st = client.get_waveforms( net, sta, loc, cha, datimBeg, datimEnd)
     st += client.get_waveforms( net, 'MBLY', '00', 'HHZ', datimBeg, datimEnd)
-    st += client.get_waveforms( net, 'MBHA', '--', 'SHZ', datimBeg, datimEnd)
+    st += client.get_waveforms( net, 'MBLG', '00', 'HHZ', datimBeg, datimEnd)
+    st += client.get_waveforms( net, 'MBFL', '00', 'HHZ', datimBeg, datimEnd)
     st += client.get_waveforms( net, 'MBRV', '--', 'BHZ', datimBeg, datimEnd)
 #    print( st )
 

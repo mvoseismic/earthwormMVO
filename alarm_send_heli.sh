@@ -140,7 +140,7 @@ rm -v $flocal
 # Call script to create 4-channel plot
 # RCS, 2021-09-28
 echo "running obspy script"
-`/home/mvo/src/obspy/plot_chans.py`
+`/home/wwsuser/bin/plot_chans.py`
 # ====================================================================
 
 ###### email ##############
